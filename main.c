@@ -101,6 +101,8 @@ int removeNode(int data) {
             // If current node is the list head
             if (current == head) {
                 head = current->next;
+                free(current);
+                current = NULL;
             } else {
                 prev->next = current->next;
                 free(current);
