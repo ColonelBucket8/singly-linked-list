@@ -10,14 +10,14 @@ Node *head = NULL;
 
 Node *addNode(int data);
 
+Node *insertNode(int data, int position);
+
 void printMenu();
 
 void printList();
 
+int removeNode(int data);
 
-int removeNode(int arg1);
-
-Node *insertNode(int arg1, int arg2);
 
 int main(int argc, char **argv) {
     int option = -1;
@@ -61,6 +61,8 @@ int main(int argc, char **argv) {
                     printList();
                     break;
                 case 5:
+                    break;
+                default:
                     break;
             }
         }
