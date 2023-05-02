@@ -124,6 +124,13 @@ void printMenu()
 void printList()
 {
   Node *current = head;
+
+  if (current == NULL)
+  {
+    printf("List is empty\n");
+    return;
+  }
+
   while (current != NULL)
   {
     setbuf(stdout, 0);
