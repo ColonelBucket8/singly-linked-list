@@ -6,7 +6,9 @@ enum Action
   Add = 1,
   Remove,
   Insert,
+  Pop,
   Print,
+  Quit,
 };
 
 typedef struct
@@ -115,8 +117,9 @@ void printMenu()
   printf("\t1. Add a node to the list.\n");
   printf("\t2. Remove a node from the list.\n");
   printf("\t3. Insert a node to the list.\n");
-  printf("\t4. Print your list\n");
-  printf("\t5. Quit.\n");
+  printf("\t4. Pop a node from the list.\n");
+  printf("\t5. Print your list\n");
+  printf("\t6. Quit.\n");
   return;
 }
 
@@ -126,7 +129,7 @@ void printList()
 
   if (current == NULL)
   {
-    printf("List is empty\n");
+    printf("List is empty. There is nothing to print.\n");
     return;
   }
 
@@ -140,13 +143,48 @@ void printList()
   return;
 }
 
+int popList()
+{
+  Node *current = head;
+  Node *prev = head;
+
+  if (current == NULL)
+  {
+    printf("List is empty. There is nothing to pop\n");
+    return 0;
+  }
+
+  // If current node is the head
+  if (current->next == NULL)
+  {
+    free(current);
+    current = NULL;
+
+    head = NULL;
+
+    return 1;
+  }
+
+  while (current->next != NULL)
+  {
+    prev = current;
+    current = current->next;
+  }
+
+  prev->next = NULL;
+  free(current);
+  current = NULL;
+
+  return 1;
+}
+
 int main(int argc, char **argv)
 {
   int option = -1;
   int arg1 = 0;
   int arg2 = 0;
 
-  while (option != 5)
+  while (option != Quit)
   {
     printMenu();
 
@@ -183,10 +221,11 @@ int main(int argc, char **argv)
           printf("Failed to insert into list\n");
         }
         break;
+      case Pop:
+        popList();
+        break;
       case Print:
         printList();
-        break;
-      case 5:
         break;
       default:
         break;
