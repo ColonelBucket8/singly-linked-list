@@ -111,7 +111,6 @@ Node *addNode(int data)
 
 void printMenu()
 {
-  setbuf(stdout, 0);
   printf("You have the following options:\n");
   printf("\t1. Add a node to the list.\n");
   printf("\t2. Remove a node from the list.\n");
@@ -133,12 +132,10 @@ void printList()
 
   while (current != NULL)
   {
-    setbuf(stdout, 0);
     printf("%d->", current->data);
     current = current->next;
   }
 
-  setbuf(stdout, 0);
   printf("\n");
   return;
 }
@@ -153,22 +150,21 @@ int main(int argc, char **argv)
   {
     printMenu();
 
-    int num_received = scanf("%d", &option);
+    int num_received = scanf_s("%d", &option);
     if (num_received == 1 && option > 0 && option <= 5)
     {
       switch (option)
       {
       case Add:
         // Add operation
-        setbuf(stdout, 0);
         printf("What data should I insert?:\n");
-        scanf("%d", &arg1);
+        scanf_s("%d", &arg1);
         Node *new = addNode(arg1);
         break;
       case Remove:
         // Remove Operation
         printf("What data should I remove?:\n");
-        scanf("%d", &arg1);
+        scanf_s("%d", &arg1);
         int success = removeNode(arg1);
         if (!success)
         {
@@ -178,9 +174,9 @@ int main(int argc, char **argv)
       case Insert:
         // Insert operation
         printf("What data should I insert?:\n");
-        scanf("%d", &arg1);
+        scanf_s("%d", &arg1);
         printf("What position?:\n");
-        scanf("%d", &arg2);
+        scanf_s("%d", &arg2);
         new = insertNode(arg1, arg2);
         if (new == NULL)
         {
