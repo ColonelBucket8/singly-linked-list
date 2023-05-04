@@ -52,7 +52,7 @@ Node *insertNode(int data, int position)
   return new;
 }
 
-int removeNode(int data)
+int remove_node(int data)
 {
   Node *current = head;
   Node *prev = head;
@@ -82,7 +82,7 @@ int removeNode(int data)
   return 0;
 }
 
-Node *addNode(int data)
+Node *add_node(int data)
 {
   Node *new = NULL;
   // Two cases:
@@ -111,7 +111,7 @@ Node *addNode(int data)
   return NULL;
 }
 
-void printMenu()
+void print_menu()
 {
   printf("You have the following options:\n");
   printf("\t1. Add a node to the list.\n");
@@ -123,7 +123,7 @@ void printMenu()
   return;
 }
 
-void printList()
+void print_list()
 {
   Node *current = head;
 
@@ -143,7 +143,7 @@ void printList()
   return;
 }
 
-int popList()
+int pop_list()
 {
   Node *current = head;
   Node *prev = head;
@@ -186,7 +186,7 @@ int main(int argc, char **argv)
 
   while (option != Quit)
   {
-    printMenu();
+    print_menu();
 
     int num_received = scanf_s("%d", &option);
     if (num_received == 1 && option > 0 && option <= 5)
@@ -197,13 +197,13 @@ int main(int argc, char **argv)
         // Add operation
         printf("What data should I insert?:\n");
         scanf_s("%d", &arg1);
-        Node *new = addNode(arg1);
+        Node *new = add_node(arg1);
         break;
       case Remove:
         // Remove Operation
         printf("What data should I remove?:\n");
         scanf_s("%d", &arg1);
-        int success = removeNode(arg1);
+        int success = remove_node(arg1);
         if (!success)
         {
           printf("Element not found\n");
@@ -222,10 +222,10 @@ int main(int argc, char **argv)
         }
         break;
       case Pop:
-        popList();
+        pop_list();
         break;
       case Print:
-        printList();
+        print_list();
         break;
       default:
         break;
