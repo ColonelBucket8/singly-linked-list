@@ -7,15 +7,10 @@ enum Action
   Remove,
   Insert,
   Pop,
+  Shift,
   Print,
   Quit,
 };
-
-typedef struct
-{
-  void *next;
-  int data;
-} Test;
 
 typedef struct
 {
@@ -118,8 +113,9 @@ void print_menu()
   printf("\t2. Remove a node from the list.\n");
   printf("\t3. Insert a node to the list.\n");
   printf("\t4. Pop a node from the list.\n");
-  printf("\t5. Print your list\n");
-  printf("\t6. Quit.\n");
+  printf("\t5. Shift a node from the list.\n");
+  printf("\t6. Print your list\n");
+  printf("\t7. Quit.\n");
   return;
 }
 
@@ -178,6 +174,39 @@ int pop_list()
   return 1;
 }
 
+int get_length()
+{
+  Node *current = head;
+  int count = 0;
+
+  while (current != NULL)
+  {
+    current = current->next;
+    count++;
+  }
+
+  return count;
+}
+
+int shift_list()
+{
+  Node *current = head;
+
+  if (current == NULL)
+  {
+    printf("Empty list. Nothing to shift.\n");
+
+    return 0;
+  }
+
+  head = current->next;
+
+  free(current);
+  current = NULL;
+
+  return 1;
+}
+
 int main(int argc, char **argv)
 {
   int option = -1;
@@ -188,19 +217,17 @@ int main(int argc, char **argv)
   {
     print_menu();
 
-    int num_received = scanf_s("%d", &option);
-    if (num_received == 1 && option > 0 && option <= 5)
+    int num_received = scanf_s("%d", &option, sizeof(option));
+    if (num_received == 1 && option > 0 && option < Quit)
     {
       switch (option)
       {
       case Add:
-        // Add operation
         printf("What data should I insert?:\n");
         scanf_s("%d", &arg1);
         Node *new = add_node(arg1);
         break;
       case Remove:
-        // Remove Operation
         printf("What data should I remove?:\n");
         scanf_s("%d", &arg1);
         int success = remove_node(arg1);
@@ -210,7 +237,6 @@ int main(int argc, char **argv)
         }
         break;
       case Insert:
-        // Insert operation
         printf("What data should I insert?:\n");
         scanf_s("%d", &arg1);
         printf("What position?:\n");
@@ -224,13 +250,17 @@ int main(int argc, char **argv)
       case Pop:
         pop_list();
         break;
+      case Shift:
+        shift_list();
+        break;
       case Print:
         print_list();
         break;
-      default:
-        break;
       }
+    } else {
+      printf("Invalid option. Please input again.\n");
     }
+
   }
 
   return 0;
