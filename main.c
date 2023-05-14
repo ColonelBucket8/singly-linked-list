@@ -9,6 +9,7 @@ enum Action
   Pop,
   Shift,
   Print,
+  Print_Reverse,
   Quit,
 };
 
@@ -115,7 +116,8 @@ void print_menu()
   printf("\t4. Pop a node from the list.\n");
   printf("\t5. Shift a node from the list.\n");
   printf("\t6. Print your list\n");
-  printf("\t7. Quit.\n");
+  printf("\t7. Print your list in reverse\n");
+  printf("\t8. Quit.\n");
   return;
 }
 
@@ -137,6 +139,35 @@ void print_list()
 
   printf("\n");
   return;
+}
+
+void print_list_reverse()
+{
+  Node *current = head;
+
+  if (current == NULL)
+  {
+    printf("The list is empty.\n");
+    return;
+  }
+
+  int temp_arr[1000];
+  size_t index = 0;
+
+  while (current != NULL)
+  {
+    temp_arr[index++] = current->data;
+    current = current->next;
+  }
+
+  for (size_t i = index - 1; i > 0; i--)
+  {
+    printf("%d<-", temp_arr[i]);
+  }
+
+  printf("%d", temp_arr[0]);
+
+  printf("\n");
 }
 
 int pop_list()
@@ -255,6 +286,9 @@ int main(int argc, char **argv)
         break;
       case Print:
         print_list();
+        break;
+      case Print_Reverse:
+        print_list_reverse();
         break;
       }
     }
