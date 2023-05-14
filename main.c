@@ -217,19 +217,19 @@ int main(int argc, char **argv)
   {
     print_menu();
 
-    int num_received = scanf_s("%d", &option, sizeof(option));
+    int num_received = scanf("%d", &option);
     if (num_received == 1 && option > 0 && option < Quit)
     {
       switch (option)
       {
       case Add:
         printf("What data should I insert?:\n");
-        scanf_s("%d", &arg1);
+        scanf("%d", &arg1);
         Node *new = add_node(arg1);
         break;
       case Remove:
         printf("What data should I remove?:\n");
-        scanf_s("%d", &arg1);
+        scanf("%d", &arg1);
         int success = remove_node(arg1);
         if (!success)
         {
@@ -238,9 +238,9 @@ int main(int argc, char **argv)
         break;
       case Insert:
         printf("What data should I insert?:\n");
-        scanf_s("%d", &arg1);
+        scanf("%d", &arg1);
         printf("What position?:\n");
-        scanf_s("%d", &arg2);
+        scanf("%d", &arg2);
         new = insertNode(arg1, arg2);
         if (new == NULL)
         {
@@ -257,10 +257,11 @@ int main(int argc, char **argv)
         print_list();
         break;
       }
-    } else {
+    }
+    else if (option != Quit)
+    {
       printf("Invalid option. Please input again.\n");
     }
-
   }
 
   return 0;
